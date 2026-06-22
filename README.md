@@ -1,35 +1,34 @@
 # WindowsTimeManagement — Wellbeing Tracker
 
-A premium, self-contained, native Windows digital wellbeing application that runs invisibly in the background, survives reboots, and accurately logs exact screen time and website activity (including YouTube and other domains) across all major browsers—even in incognito/InPrivate modes.
+A native, self-contained Windows digital wellbeing application designed to log screen time and website activity in the background. The application runs invisibly, registers for startup execution, and logs precise application and web domain usage (including YouTube and custom domains) across all major web browsers—including incognito and private browsing sessions.
 
-Designed with a stunning, high-performance dark glassmorphic dashboard interface built on React, Vite, and TailwindCSS.
-
----
-
-## 🚀 Key Features
-
-*   **🕵️ True Browser Tracking**: Uses Windows UI Automation APIs to read the browser address bar. Falls back to smart window title parsing when UI Automation is unavailable.
-*   **🔒 Incognito & InPrivate Support**: Tracks browser tab domains even in private browsing modes via OS accessibility hooks.
-*   **⚙️ Native System Tray**: Lives silently in your Windows notification tray. Right-click to Pause/Resume, Open Dashboard, Uninstall, or Exit.
-*   **💻 Native App Window**: Serves the dashboard locally and launches in a native, lightweight desktop frame (Edge HTML5/WebView2) instead of a standard browser tab.
-*   **💎 Glassmorphic Dashboard**: Beautiful charts (Weekly screen-time trends, 24-hour activity heatmaps, top applications, top websites, and interactive dot-timeline).
-*   **📅 Full History Viewer**: Query and analyze usage stats for any day in history using custom date navigation buttons.
-*   **🛠️ Diagnostics & Simulator**: Includes a system metrics dashboard, live log terminal viewer reading from `debug.log`, and a simulator to generate 7 days of mock activity data for instant testing.
-*   **📦 100% Standalone**: Compiled into a single, dependency-free binary (`dist/WellbeingTracker.exe`). Sharing it is as simple as copying the `.exe` file.
+The user interface is built as a dark, deconstructed minimalist dashboard using React, Vite, and Tailwind CSS, served locally and displayed in a lightweight, native WebView2 desktop container.
 
 ---
 
-## 📐 Architecture
+## Technical Features
+
+*   **Browser Activity Tracking**: Utilizes Windows UI Automation APIs to retrieve active browser address bar URLs. Falls back to window title parsing when automation endpoints are restricted.
+*   **Private Session Logging**: Tracks active browser tab domains during incognito and InPrivate sessions using OS accessibility hooks.
+*   **System Tray Integration**: Operates silently in the Windows notification tray. The tray menu allows users to pause/resume tracking, launch the dashboard, uninstall, or exit.
+*   **Deconstructed Minimalist UI**: Features a high-contrast dashboard displaying weekly screen-time trends, a 24-hour activity heatmap, top application listings, top website lists, and a raw activity telemetry log.
+*   **Integrated History Strip**: Allows navigation of past logs using a horizontal calendar strip and an inline custom date selector directly on the dashboard screen.
+*   **Diagnostics Panel**: Displays system resource usage, active tracker configuration parameters, and a live tail of application logs from `debug.log`.
+*   **Standalone Portable Binary**: Compiles into a single, dependency-free binary containing the embedded frontend and local server assets.
+
+---
+
+## Architecture
 
 ```mermaid
 graph TD
     subgraph Frontend [React Desktop Dashboard]
-        UI[Glassmorphic UI] --> |React Query| API_Client[API Client]
+        UI[Minimalist UI] --> |React Query| API_Client[API Client]
         API_Client --> |REST / WebSocket| API[FastAPI Server]
     end
 
     subgraph Backend [Python Core]
-        API --> |Reads / Mock Insert| DB[(SQLite Database)]
+        API --> |Reads / Queries| DB[(SQLite Database)]
         Watchdog[Watchdog Loop] --> |Active Window / URL| DB
         Watchdog --> |State Writes| Current[current.json]
         Current --> |Live Tick| API
@@ -45,29 +44,28 @@ graph TD
 
 ---
 
-## 🛠️ Getting Started
+## Getting Started
 
-### sharing & Running (Production)
-1.  Navigate to the `dist` folder.
-2.  Copy `WellbeingTracker.exe` to any folder on your computer.
-3.  Double-click `WellbeingTracker.exe` to launch.
-4.  A native welcome dialog will confirm that auto-start on login has been registered. You'll see a new teal circle icon in your system tray.
-5.  Double-click the tray icon to open the dashboard!
+### Running the Executable (Production)
+1. Copy `WellbeingTracker.exe` from the latest release to any directory on the local system.
+2. Double-click the executable to launch the application.
+3. The application will register itself with the user startup registry key and run silently in the system tray.
+4. Double-click the system tray icon to open the local dashboard.
 
-### Developer Setup (Dev Mode)
-To run the project in development mode:
+### Developer Setup
+To run the tracker in development mode:
 
-1.  **Clone the repository**:
+1. **Clone the repository**:
     ```bash
     git clone https://github.com/amayIIp/WindowsTimeManagement.git
     cd WindowsTimeManagement
     ```
-2.  **Set up Backend**:
+2. **Set up Backend**:
     ```bash
     pip install -r requirements.txt
     python main.py
     ```
-3.  **Set up Frontend**:
+3. **Set up Frontend**:
     ```bash
     cd dashboard
     npm install
@@ -76,42 +74,42 @@ To run the project in development mode:
 
 ---
 
-## 🧪 Running the Audit Suite
+## Running the Automated Audits
 
-To verify that the database schema, real-time update engine, domain parser, and FastAPI server work cleanly end-to-end, execute the automated test suite:
+To verify the database schema, domain parser rules, database commits, and FastAPI routes end-to-end, execute:
 
 ```bash
 python audit.py
 ```
 
-The audit script runs a local uvicorn thread, queries endpoints using `urllib`, validates fallback matching cases, tests real-time database updates (preventing data loss on crash), and inserts simulation mock data to confirm system readiness.
+The audit script spins up a local server thread, queries endpoints to validate outputs, tests real-time database write operations, and ensures tracker stability.
 
 ---
 
-## 🗑️ Uninstalling
+## Uninstallation
 
-You can fully remove the application in two ways:
-1.  **Via Tray Menu**: Right-click the system tray icon and select **Uninstall**.
-2.  **Via Command Line**: Run:
+To cleanly remove the application and registry configurations:
+1. **Via System Tray**: Right-click the tray icon and select **Uninstall**.
+2. **Via Command Line**: Execute:
     ```bash
     python uninstall.py
     ```
 
-Both methods cleanly remove the startup registry entry, stop active background processes, and show a native completion popup while preserving your database file (`wellbeing.db`).
+Both procedures unregister the startup registry keys and terminate active tracking threads while preserving your historical database (`wellbeing.db`).
 
 ---
 
-## 📦 Building from Source
+## Compilation
 
-To compile the single-file executable yourself:
-1.  Build the frontend assets:
+To package the standalone binary:
+1. Compile the React frontend assets:
     ```bash
     cd dashboard
     npm run build
     cd ..
     ```
-2.  Run PyInstaller:
+2. Build the PyInstaller package:
     ```bash
     python -m PyInstaller WellbeingTracker.spec --noconfirm
     ```
-3.  The single-file executable will be ready at `dist/WellbeingTracker.exe`.
+3. The standalone executable is generated at `dist/WellbeingTracker.exe`.

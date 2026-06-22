@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { api } from '../lib/api';
-import { Cpu, HardDrive, Terminal, Play, RotateCw, AlertTriangle } from 'lucide-react';
+import { Cpu, HardDrive, Terminal, RotateCw, AlertTriangle } from 'lucide-react';
 
 export function DiagnosticsPanel() {
-  const queryClient = useQueryClient();
   const [logRefreshKey, setLogRefreshKey] = useState(0);
   const terminalEndRef = useRef<HTMLDivElement>(null);
 
@@ -18,19 +17,6 @@ export function DiagnosticsPanel() {
   const { data: logData, refetch: refetchLogs } = useQuery({
     queryKey: ['debug-logs', logRefreshKey],
     queryFn: () => api.getDebugLogs(200),
-  });
-
-  // Mutation for simulation
-  const simulateMutation = useMutation({
-    mutationFn: api.runSimulation,
-    onSuccess: (data) => {
-      // Invalidate queries so history and charts refresh
-      queryClient.invalidateQueries();
-      alert(`Simulation complete! Generated and inserted ${data.rows_inserted} mock activity rows.`);
-    },
-    onError: (err) => {
-      alert(`Failed to run simulation: ${err instanceof Error ? err.message : String(err)}`);
-    }
   });
 
   // Auto-scroll logs terminal
@@ -175,34 +161,6 @@ export function DiagnosticsPanel() {
             </div>
           </div>
 
-          {/* Simulator Panel */}
-          <div className="glass-card p-6 border-teal-500/10">
-            <h3 className="text-white font-semibold text-base mb-2">Simulate Mock Activity</h3>
-            <p className="text-slate-400 text-xs mb-4">
-              Click the button below to insert realistic wellbeing logs for the past 7 days. This allows you to immediately test the weekly screen-time charts, daily hourly activity heatmap, top websites list, and history picker.
-            </p>
-            <button
-              onClick={() => {
-                if (confirm('Insert mock tracking rows for the past 7 days? This will not affect existing logs.')) {
-                  simulateMutation.mutate();
-                }
-              }}
-              disabled={simulateMutation.isPending}
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#14B8A6] to-[#0D9488] hover:from-[#0D9488] hover:to-[#0F766E] disabled:opacity-50 text-white font-medium text-sm py-2.5 px-4 rounded-xl shadow-lg shadow-teal-500/10 hover:shadow-teal-500/20 active:scale-95 transition-all duration-200"
-            >
-              {simulateMutation.isPending ? (
-                <>
-                  <RotateCw className="w-4 h-4 animate-spin" />
-                  Generating Mock Data...
-                </>
-              ) : (
-                <>
-                  <Play className="w-4 h-4" />
-                  Run Simulation (7 Days Mock Data)
-                </>
-              )}
-            </button>
-          </div>
         </div>
 
         {/* Live Logs Terminal */}

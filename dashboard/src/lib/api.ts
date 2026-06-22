@@ -63,11 +63,6 @@ const fetchJson = async <T>(url: string): Promise<T> => {
   return res.json();
 };
 
-const postJson = async <T>(url: string): Promise<T> => {
-  const res = await fetch(url, { method: 'POST' });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
-  return res.json();
-};
 
 export const api = {
   getToday: (date?: string) => fetchJson<DailySummary>(`/api/activity/today${date ? `?date=${date}` : ''}`),
@@ -79,5 +74,4 @@ export const api = {
   getTrackedDates: () => fetchJson<string[]>('/api/activity/dates'),
   getDebugStatus: () => fetchJson<DebugStatusInfo>('/api/debug/status'),
   getDebugLogs: (lines?: number) => fetchJson<{ logs: string[] }>(`/api/debug/logs${lines ? `?lines=${lines}` : ''}`),
-  runSimulation: () => postJson<{ status: string; rows_inserted: number }>('/api/debug/simulate'),
 };

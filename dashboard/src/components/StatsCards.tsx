@@ -1,4 +1,4 @@
-import { Monitor, Clock, TrendingUp, Zap } from 'lucide-react';
+import { Monitor, Clock, TrendingUp } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../lib/api';
 import { useLiveFeed } from '../lib/ws';
@@ -33,55 +33,62 @@ export function StatsCards({ date, isToday }: StatsCardsProps) {
     }
   }
 
-  // Productivity estimate: percentage of time in top 3 apps vs total
-  const top3Time = (today?.top_apps || []).slice(0, 3).reduce((s, a) => s + a.duration_seconds, 0);
-  const focusScore = totalSeconds > 0 ? Math.round((top3Time / totalSeconds) * 100) : 0;
-
-  const cards = [
-    {
-      icon: Clock,
-      label: 'Screen Time',
-      value: formatDuration(totalSeconds),
-      accent: 'from-[#14B8A6] to-[#0D9488]',
-      iconColor: 'text-[#14B8A6]',
-    },
-    {
-      icon: Monitor,
-      label: 'Apps Used',
-      value: `${appsCount}`,
-      accent: 'from-violet-500 to-indigo-600',
-      iconColor: 'text-violet-400',
-    },
-    {
-      icon: TrendingUp,
-      label: 'Peak Hour',
-      value: peakHour,
-      accent: 'from-amber-500 to-orange-600',
-      iconColor: 'text-amber-400',
-    },
-    {
-      icon: Zap,
-      label: 'Focus Score',
-      value: `${focusScore}%`,
-      accent: 'from-rose-500 to-pink-600',
-      iconColor: 'text-rose-400',
-    },
-  ];
-
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      {cards.map((card) => (
-        <div key={card.label} className="glass-card p-5 relative overflow-hidden group hover:border-[#14B8A6]/30 transition-colors">
-          <div className="flex items-center gap-3 mb-3">
-            <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${card.accent} flex items-center justify-center opacity-80`}>
-              <card.icon className="w-4.5 h-4.5 text-white" />
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {/* 1. Screen Time (Large, Rounded 24px, slightly offset up) */}
+      <div className="md:col-span-2 glass-card-24 p-6 relative overflow-hidden group hover:border-[#14B8A6]/30 transition-all duration-300 md:translate-y-[-6px] min-h-[130px] flex flex-col justify-between">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#14B8A6] to-[#0D9488] flex items-center justify-center shadow-lg shadow-teal-500/10">
+              <Clock className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xs text-slate-500 uppercase tracking-wider font-medium">{card.label}</span>
+            <span className="text-[10px] tracking-widest text-slate-500 uppercase font-mono font-bold">Total Screen Time</span>
           </div>
-          <div className="text-2xl font-bold text-white tracking-tight">{card.value}</div>
-          <div className={`absolute -top-6 -right-6 w-20 h-20 rounded-full bg-gradient-to-br ${card.accent} opacity-5 group-hover:opacity-10 transition-opacity`} />
+          {isToday && (
+            <span className="text-[9px] font-mono bg-[#14B8A6]/10 text-[#14B8A6] px-2 py-0.5 rounded-full border border-[#14B8A6]/20">
+              Active
+            </span>
+          )}
         </div>
-      ))}
+        <div className="mt-4">
+          <div className="text-4xl font-extrabold text-white tracking-tighter">
+            {formatDuration(totalSeconds)}
+          </div>
+        </div>
+        <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-[#14B8A6] opacity-5 group-hover:opacity-10 transition-opacity" />
+      </div>
+
+      {/* 2. Apps Used (Medium, Rounded 16px) */}
+      <div className="glass-card p-5 relative overflow-hidden group hover:border-violet-500/30 transition-all duration-300 min-h-[130px] flex flex-col justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center opacity-85">
+            <Monitor className="w-4.5 h-4.5 text-white" />
+          </div>
+          <span className="text-[10px] tracking-widest text-slate-500 uppercase font-mono font-bold">Apps Used</span>
+        </div>
+        <div className="mt-4">
+          <div className="text-3xl font-extrabold text-white tracking-tighter">
+            {appsCount}
+          </div>
+        </div>
+        <div className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full bg-violet-600 opacity-5 group-hover:opacity-10 transition-opacity" />
+      </div>
+
+      {/* 3. Peak Hour (Sharp 0px card, deconstructed raw feel) */}
+      <div className="sharp-card p-5 relative overflow-hidden group hover:border-amber-500/30 transition-all duration-300 min-h-[130px] flex flex-col justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-none bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center opacity-85">
+            <TrendingUp className="w-4.5 h-4.5 text-white" />
+          </div>
+          <span className="text-[10px] tracking-widest text-slate-500 uppercase font-mono font-bold">Peak Hour</span>
+        </div>
+        <div className="mt-4">
+          <div className="text-3xl font-extrabold text-white tracking-tighter font-mono">
+            {peakHour}
+          </div>
+        </div>
+        <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-amber-600 opacity-5 group-hover:opacity-10 transition-opacity" />
+      </div>
     </div>
   );
 }

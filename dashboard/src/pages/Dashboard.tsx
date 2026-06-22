@@ -10,10 +10,10 @@ import { TopApps } from '../components/TopApps';
 import { TopSitesCard } from '../components/TopSitesCard';
 import { Timeline } from '../components/Timeline';
 import { DiagnosticsPanel } from '../components/DiagnosticsPanel';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, RotateCcw } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 
 export function Dashboard() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'history' | 'debug'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'debug'>('dashboard');
 
   // Compute today's date string (YYYY-MM-DD) in local time
   const todayStr = useMemo(() => {
@@ -27,7 +27,7 @@ export function Dashboard() {
   const [selectedDate, setSelectedDate] = useState<string>(todayStr);
 
   // Determine active query date
-  const queryDate = activeTab === 'dashboard' ? todayStr : selectedDate;
+  const queryDate = activeTab === 'dashboard' ? selectedDate : todayStr;
 
   const { data: activeDates } = useQuery({
     queryKey: ['tracked-dates'],
@@ -41,24 +41,22 @@ export function Dashboard() {
     return new Set(activeDates || []);
   }, [activeDates]);
 
-  // Date navigation helpers
-  const handlePrevDay = () => {
-    const current = new Date(selectedDate + 'T00:00:00');
-    current.setDate(current.getDate() - 1);
-    const year = current.getFullYear();
-    const month = String(current.getMonth() + 1).padStart(2, '0');
-    const day = String(current.getDate()).padStart(2, '0');
-    setSelectedDate(`${year}-${month}-${day}`);
-  };
-
-  const handleNextDay = () => {
-    const current = new Date(selectedDate + 'T00:00:00');
-    current.setDate(current.getDate() + 1);
-    const year = current.getFullYear();
-    const month = String(current.getMonth() + 1).padStart(2, '0');
-    const day = String(current.getDate()).padStart(2, '0');
-    setSelectedDate(`${year}-${month}-${day}`);
-  };
+  // Generate the last 7 days dynamically
+  const last7Days = useMemo(() => {
+    const list = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const yyyy = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const dateStr = `${yyyy}-${month}-${day}`;
+      const dayName = d.toLocaleDateString('en-US', { weekday: 'short' });
+      const dayNum = d.getDate();
+      list.push({ dateStr, dayName, dayNum });
+    }
+    return list;
+  }, [todayStr]);
 
   return (
     <div className="min-h-screen bg-[#0B0D0F] pb-10">
@@ -70,78 +68,69 @@ export function Dashboard() {
         {activeTab === 'dashboard' && (
           <>
             <LiveActivity />
-            <StatsCards date={queryDate} isToday={isToday} />
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="h-80">
-                <WeeklyChart date={queryDate} />
-              </div>
-              <HourlyHeatmap date={queryDate} />
-            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <TopApps date={queryDate} />
-              <TopSitesCard date={queryDate} />
-              <Timeline date={queryDate} />
-            </div>
-          </>
-        )}
-
-        {/* TAB 2: HISTORY VIEWER */}
-        {activeTab === 'history' && (
-          <>
-            {/* History Date Controller Banner */}
-            <div className="glass-card p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border-[#14B8A6]/20 bg-gradient-to-r from-[#0D1A17] to-transparent">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#14B8A6]/10 flex items-center justify-center text-[#14B8A6]">
-                  <CalendarIcon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h2 className="text-white font-bold text-lg" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                    History Viewer
-                  </h2>
-                  <p className="text-slate-400 text-xs">
-                    {isToday ? 'Viewing today\'s live data' : `Viewing logs for ${selectedDate}`}
-                  </p>
+            {/* Asymmetrical Deconstructed Header & Calendar Strip */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:translate-x-[-12px] transition-transform">
+              <div className="space-y-1">
+                <h2 className="text-2xl font-extrabold text-white tracking-tighter uppercase font-sans">
+                  Activity Logs
+                </h2>
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full ${isToday ? 'bg-[#14B8A6] animate-pulse' : 'bg-slate-600'}`} />
+                  <span className="text-[10px] text-slate-500 font-mono tracking-widest uppercase">
+                    {isToday ? 'Live Tracking Active' : `Archived Logs: ${selectedDate}`}
+                  </span>
                 </div>
               </div>
 
-              {/* Date Selector Navigation */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handlePrevDay}
-                  className="p-2 rounded-xl bg-[#15181C] border border-[#23272D] hover:border-slate-500 hover:text-white text-slate-400 transition-colors"
-                  title="Previous Day"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
+              {/* Horizontal Calendar Strip & compact picker */}
+              <div className="flex flex-wrap items-center gap-2 md:translate-y-2">
+                <div className="flex items-center gap-1 bg-[#121519]/60 p-1 rounded-xl border border-[#23272D]/40">
+                  {last7Days.map((day) => {
+                    const isSel = selectedDate === day.dateStr;
+                    const hasD = dateHasData.has(day.dateStr);
+                    return (
+                      <button
+                        key={day.dateStr}
+                        onClick={() => setSelectedDate(day.dateStr)}
+                        className={`flex flex-col items-center justify-center w-11 py-1.5 rounded-lg border transition-all duration-200 ${
+                          isSel
+                            ? 'bg-[#14B8A6]/15 border-[#14B8A6] text-white shadow-md'
+                            : 'bg-transparent border-transparent text-slate-500 hover:text-white'
+                        }`}
+                      >
+                        <span className="text-[8px] font-mono uppercase tracking-wider font-semibold opacity-60">
+                          {day.dayName}
+                        </span>
+                        <span className="text-sm font-bold mt-0.5">
+                          {day.dayNum}
+                        </span>
+                        {hasD && (
+                          <span className={`w-1 h-1 rounded-full mt-1 ${isSel ? 'bg-[#14B8A6]' : 'bg-slate-600'}`} />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
 
-                <div className="relative flex items-center">
+                {/* Calendar Input picker protruding right */}
+                <div className="relative flex items-center bg-[#15181C] border border-[#23272D] rounded-xl px-3 py-2 text-slate-400 hover:border-slate-500 hover:text-white transition-all shadow-md md:translate-x-1.5">
                   <input
                     type="date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
                     max={todayStr}
-                    className="bg-[#15181C] border border-[#23272D] text-white px-4 py-2 rounded-xl focus:outline-none focus:border-[#14B8A6] font-mono text-sm transition-colors cursor-pointer"
+                    className="bg-transparent text-white focus:outline-none font-mono text-xs cursor-pointer w-28 border-none"
                   />
-                  {dateHasData.has(selectedDate) && (
-                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#14B8A6]" title="Contains activity log" />
+                  {dateHasData.has(selectedDate) && !last7Days.some(d => d.dateStr === selectedDate) && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#14B8A6] border border-[#0B0D0F]" />
                   )}
                 </div>
-
-                <button
-                  onClick={handleNextDay}
-                  disabled={selectedDate >= todayStr}
-                  className="p-2 rounded-xl bg-[#15181C] border border-[#23272D] hover:border-slate-500 hover:text-white disabled:opacity-30 disabled:hover:border-[#23272D] text-slate-400 transition-colors"
-                  title="Next Day"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
 
                 {!isToday && (
                   <button
                     onClick={() => setSelectedDate(todayStr)}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#14B8A6]/10 text-[#14B8A6] hover:bg-[#14B8A6]/20 transition-colors text-xs font-semibold"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#14B8A6]/10 text-[#14B8A6] hover:bg-[#14B8A6]/20 transition-all text-xs font-semibold font-mono uppercase tracking-wider"
                   >
                     <RotateCcw className="w-3.5 h-3.5" /> Today
                   </button>
@@ -149,7 +138,6 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Historical Dashboard Contents */}
             <StatsCards date={queryDate} isToday={isToday} />
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -167,7 +155,7 @@ export function Dashboard() {
           </>
         )}
 
-        {/* TAB 3: DIAGNOSTICS & DEBUG */}
+        {/* TAB 2: DIAGNOSTICS & DEBUG */}
         {activeTab === 'debug' && (
           <DiagnosticsPanel />
         )}

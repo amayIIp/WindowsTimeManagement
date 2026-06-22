@@ -1,9 +1,9 @@
-import { Activity, Calendar, ShieldAlert } from 'lucide-react';
+import { Activity, ShieldAlert } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface TopNavProps {
-  activeTab: 'dashboard' | 'history' | 'debug';
-  setActiveTab: (tab: 'dashboard' | 'history' | 'debug') => void;
+  activeTab: 'dashboard' | 'debug';
+  setActiveTab: (tab: 'dashboard' | 'debug') => void;
 }
 
 export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
@@ -19,7 +19,7 @@ export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
 
   return (
     <nav className="flex items-center justify-between py-4 px-6 lg:px-10 border-b border-[#23272D]/60">
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-8 md:translate-x-[-12px] transition-transform">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#14B8A6] to-[#0D9488] flex items-center justify-center shadow-lg shadow-teal-500/20">
             <Activity className="w-5 h-5 text-white" />
@@ -45,16 +45,6 @@ export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
           <Activity className="w-4 h-4" /> <span className="hidden xs:inline">Home</span>
         </button>
         <button 
-          onClick={() => setActiveTab('history')}
-          className={`flex items-center gap-2 px-3 sm:px-5 py-2 rounded-full font-medium text-xs sm:text-sm transition-all duration-300 ${
-            activeTab === 'history' 
-              ? 'bg-[#14B8A6] text-white shadow-lg shadow-teal-500/20' 
-              : 'text-slate-500 hover:text-white'
-          }`}
-        >
-          <Calendar className="w-4 h-4" /> <span className="hidden xs:inline">History</span>
-        </button>
-        <button 
           onClick={() => setActiveTab('debug')}
           className={`flex items-center gap-2 px-3 sm:px-5 py-2 rounded-full font-medium text-xs sm:text-sm transition-all duration-300 ${
             activeTab === 'debug' 
@@ -66,11 +56,8 @@ export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
         </button>
       </div>
 
-      <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
-          U
-        </div>
-      </div>
+      {/* Profile icon removed as it does nothing */}
+      <div className="w-9 h-9" />
     </nav>
   );
 }
