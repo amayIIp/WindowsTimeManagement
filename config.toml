@@ -1,0 +1,27 @@
+[tracking]
+idle_timeout_seconds = 300
+poll_interval_ms     = 500
+store_full_url       = false
+
+[browsers]
+tracked = [
+    "chrome.exe",
+    "msedge.exe",
+    "brave.exe",
+    "firefox.exe",
+    "opera.exe",
+    "vivaldi.exe",
+    "arc.exe",
+    "waterfox.exe",
+    "librewolf.exe",
+    "floorp.exe",
+    "thorium.exe",
+    "iridium.exe",
+    "chromium.exe",
+    "ungoogled-chromium.exe",
+    "zen.exe",
+]
+
+[server]
+host = "127.0.0.1"
+port = 7331

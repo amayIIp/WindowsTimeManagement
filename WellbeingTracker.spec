@@ -1,0 +1,58 @@
+# -*- mode: python ; coding: utf-8 -*-
+
+
+a = Analysis(
+    ['main.py'],
+    pathex=[],
+    binaries=[],
+    datas=[('config.toml', '.'), ('dashboard/dist', 'dashboard/dist')],
+    hiddenimports=[
+        'uvicorn.logging',
+        'uvicorn.loops.auto',
+        'uvicorn.protocols.http.auto',
+        'uvicorn.protocols.websockets.auto',
+        'uvicorn.lifespan.on',
+        'websockets.legacy.server',
+        'aiosqlite',
+        'pystray',
+        'pystray._win32',
+        'PIL',
+        'PIL.Image',
+        'PIL.ImageDraw',
+        'webview',
+        'webview.platforms',
+        'webview.platforms.edgechromium',
+        'webview.platforms.winforms',
+        'clr_loader',
+        'pythonnet',
+        'bottle',
+    ],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[],
+    noarchive=False,
+    optimize=0,
+)
+pyz = PYZ(a.pure)
+
+exe = EXE(
+    pyz,
+    a.scripts,
+    a.binaries,
+    a.datas,
+    [],
+    name='WellbeingTracker',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
+    console=False,
+    disable_windowed_traceback=False,
+    argv_emulation=False,
+    target_arch=None,
+    codesign_identity=None,
+    entitlements_file=None,
+)

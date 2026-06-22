@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Outfit", sans-serif;
+  --color-primary: #14B8A6;
+  --color-dark-bg: #0B0D0F;
+  --color-dark-card: #15181C;
+  --color-dark-border: #23272D;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-dark-bg);
+  color: #E5E7EB;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.glass-card {
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-dark-border);
+  border-radius: 1rem;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.02), 0 4px 24px rgba(0,0,0,0.3);
+}
+
+.glass-card-green {
+  background: linear-gradient(135deg, #0D1A17 0%, #111A1B 100%);
+  border: 1px solid #1D2B29;
+  border-radius: 1rem;
+  box-shadow: 0 0 0 1px rgba(20,184,166,0.05), 0 4px 24px rgba(0,0,0,0.3);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(20,184,166,0.3); }
+  50% { box-shadow: 0 0 20px rgba(20,184,166,0.6); }
+}
+
+.live-indicator {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #23272D;
+  border-radius: 3px;
+}

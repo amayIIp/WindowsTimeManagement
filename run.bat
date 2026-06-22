@@ -1,0 +1,6 @@
+@echo off
+echo Starting Wellbeing Tracker...
+start /B python -m tracker
+timeout /t 1 >nul
+echo Starting FastAPI Server...
+uvicorn server.main:app --host 127.0.0.1 --port 7331
