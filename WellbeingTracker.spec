@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('config.toml', '.'), ('dashboard/dist', 'dashboard/dist')],
+    datas=[('config.toml', '.'), ('logo.png', '.'), ('dashboard/dist', 'dashboard/dist')],
     hiddenimports=[
         'uvicorn.logging',
         'uvicorn.loops.auto',
@@ -50,6 +50,7 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
+    icon='logo.png',
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,

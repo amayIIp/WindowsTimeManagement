@@ -10,20 +10,24 @@ from common import set_tracking_paused, logger
 from autostart import unregister_autostart, show_uninstall_popup
 
 
+import sys
+import os
+
 def create_icon_image() -> Image.Image:
-    """Generate a 64x64 teal ring icon programmatically (no file needed)."""
-    size = 64
-    img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-    # Outer teal circle
-    draw.ellipse([2, 2, size - 2, size - 2], fill=(20, 184, 166, 255))
-    # Inner dark cutout
-    r = 16
-    draw.ellipse([r, r, size - r, size - r], fill=(11, 13, 15, 255))
-    # Center bright dot
-    c = size // 2
-    draw.ellipse([c - 5, c - 5, c + 5, c + 5], fill=(20, 184, 166, 255))
-    return img
+    """Load the logo from the bundle or disk."""
+    if getattr(sys, 'frozen', False):
+        path = os.path.join(sys._MEIPASS, 'logo.png')
+    else:
+        path = os.path.join(os.path.dirname(__file__), 'logo.png')
+    try:
+        return Image.open(path)
+    except Exception as e:
+        logger.error(f"Failed to load icon: {e}")
+        # fallback
+        img = Image.new('RGBA', (64, 64), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        draw.ellipse([2, 2, 62, 62], fill=(20, 184, 166, 255))
+        return img
 
 
 class TrayManager:
