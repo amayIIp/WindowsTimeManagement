@@ -15,23 +15,27 @@ export function Timeline({ date }: { date?: string }) {
   };
 
   return (
-    <div className="sharp-card p-6 h-full flex flex-col">
-      <div className="flex justify-between items-center mb-5 border-b border-[#23272D]/55 pb-3">
-        <h3 className="text-white font-bold text-xs uppercase tracking-widest font-mono">
-          System telemetry / timeline
-        </h3>
-        <span className="text-[10px] text-slate-500 font-mono">[{events.length} LOGS]</span>
+    <div className="sharp-card p-6 h-full flex flex-col min-h-[380px]">
+      <div className="relative flex justify-between items-start mb-5 border-b border-white/10 pb-4 gap-4">
+        <div>
+          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.18em] font-mono">
+            System telemetry
+          </span>
+          <h3 className="mt-2 text-xl font-black text-white tracking-[0.02em]">event trace</h3>
+        </div>
+        <span className="text-[10px] text-[#1f7aff] font-mono border border-[#1f7aff]/35 px-2 py-1">[{events.length} LOGS]</span>
       </div>
 
-      <div className="flex flex-col gap-0 flex-1 overflow-y-auto max-h-80 pr-1 select-text selection:bg-[#14B8A6]/20">
+      <div className="flex flex-col gap-0 flex-1 overflow-y-auto max-h-80 pr-1 select-text selection:bg-[#1f7aff]/20">
         {events.map((ev, i) => (
-          <div key={`${ev.start_time}-${i}`} className="flex gap-4 group py-2 border-b border-[#23272D]/30 last:border-0 hover:bg-[#15181C]/40 px-2 transition-colors">
-            {/* Index code prefix */}
+          <div
+            key={`${ev.start_time}-${i}`}
+            className={`flex gap-4 group py-2.5 border-b border-white/10 last:border-0 hover:bg-white/[0.04] px-2 transition-all duration-300 ${i % 4 === 1 ? 'md:translate-x-3' : ''}`}
+          >
             <span className="text-[9px] text-slate-600 font-mono shrink-0 select-none">
               {String(events.length - i).padStart(3, '0')}
             </span>
 
-            {/* Content */}
             <div className="flex-1 min-w-0 font-mono text-xs">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-white font-bold uppercase text-[11px] truncate">
@@ -41,14 +45,13 @@ export function Timeline({ date }: { date?: string }) {
                   {formatTime(ev.start_time)}
                 </span>
               </div>
-              
-              {/* Bleeding text info */}
+
               <div className="text-[10px] text-slate-400 mt-1 truncate whitespace-nowrap overflow-x-hidden" title={ev.title || undefined}>
-                {ev.url || ev.title || '—'}
+                {ev.url || ev.title || '--'}
               </div>
 
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-[9px] text-[#14B8A6] uppercase bg-[#14B8A6]/10 px-1 py-0.2 select-none">
+                <span className="text-[9px] text-[#1f7aff] uppercase bg-[#1f7aff]/10 px-1 py-0.2 select-none">
                   {formatDuration(ev.duration_seconds)}
                 </span>
               </div>
@@ -62,6 +65,7 @@ export function Timeline({ date }: { date?: string }) {
           </div>
         )}
       </div>
+      <div className="technical-line mt-4 data-bleed">TRACE_REVERSED=true / BUFFER=20 / STREAM=local</div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Monitor, Globe, Clock } from 'lucide-react';
+import type { CSSProperties } from 'react';
 import { useLiveFeed } from '../lib/ws';
 import { formatDuration } from '../lib/time';
 
@@ -7,29 +8,35 @@ export function LiveActivity() {
   const current = tick?.current;
 
   return (
-    <div className="glass-card p-5 flex items-center gap-4 relative overflow-hidden">
-      <div className="live-indicator w-3 h-3 rounded-full bg-[#14B8A6] shrink-0" />
+    <div className="glass-card p-4 sm:p-5 flex flex-col gap-4 relative overflow-hidden lg:ml-12 lg:mr-28" style={{ '--hover-x': '6px', '--hover-r': '-0.25deg' } as CSSProperties}>
+      <div className="absolute -right-8 top-4 w-44 signal-strip opacity-60" aria-hidden="true" />
+      <div className="flex items-center gap-3">
+        <div className="live-indicator w-3 h-3 rounded-full bg-[#1f7aff] shrink-0" />
+        <span className="section-label">Active Focus Stream</span>
+        <span className="hidden sm:block h-px flex-1 bg-[rgba(17,22,29,0.1)]" />
+      </div>
 
       {current ? (
-        <div className="flex items-center gap-6 flex-1 min-w-0">
-          <div className="flex items-center gap-2 text-sm text-white">
-            <Monitor className="w-4 h-4 text-[#14B8A6] shrink-0" />
-            <span className="font-medium truncate max-w-48">{current.exe.replace('.exe', '')}</span>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-[220px_minmax(0,1fr)_auto] md:items-center">
+          <div className="flex items-center gap-2 text-sm text-[#11161d] min-w-0">
+            <Monitor className="w-4 h-4 text-[#1f7aff] shrink-0" />
+            <span className="font-black truncate tracking-tight">{current.exe.replace('.exe', '')}</span>
           </div>
-          <div className="hidden md:flex items-center gap-2 text-sm text-slate-400 flex-1 min-w-0">
+          <div className="flex items-center gap-2 text-sm text-slate-600 min-w-0">
             <Globe className="w-4 h-4 shrink-0" />
             <span className="truncate">{current.title || 'No title'}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-[#14B8A6]">
+          <div className="flex items-center gap-2 text-sm text-[#1f7aff]">
             <Clock className="w-4 h-4 shrink-0" />
-            <span className="font-mono">{formatDuration(current.duration_seconds)}</span>
+            <span className="font-mono font-bold">{formatDuration(current.duration_seconds)}</span>
+          </div>
+          <div className="technical-line data-bleed md:col-span-3">
+            CURRENT_PROCESS="{current.exe}" / WINDOW_TITLE="{current.title || 'null'}"
           </div>
         </div>
       ) : (
-        <span className="text-sm text-slate-500">Waiting for activity...</span>
+        <span className="text-sm text-slate-500">Waiting for activity signal...</span>
       )}
-
-      <div className="absolute inset-0 bg-gradient-to-r from-[#14B8A6]/5 to-transparent pointer-events-none" />
     </div>
   );
 }

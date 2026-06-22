@@ -59,33 +59,55 @@ export function Dashboard() {
   }, [todayStr]);
 
   return (
-    <div className="min-h-screen bg-[#0B0D0F] pb-10">
+    <div className="app-shell pb-12">
+      <div className="fracture-field" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
       <TopNav activeTab={activeTab} setActiveTab={setActiveTab} />
       
-      <main className="max-w-[1400px] mx-auto px-6 lg:px-10 py-6 space-y-6">
+      <main className="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-10 py-7 lg:py-10 space-y-8">
         
         {/* TAB 1: HOME DASHBOARD */}
         {activeTab === 'dashboard' && (
-          <>
+          <div className="motion-plate space-y-8">
             <LiveActivity />
 
-            {/* Asymmetrical Deconstructed Header & Calendar Strip */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:translate-x-[-12px] transition-transform">
-              <div className="space-y-1">
-                <h2 className="text-2xl font-extrabold text-white tracking-tighter uppercase font-sans">
-                  Activity Logs
-                </h2>
-                <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${isToday ? 'bg-[#14B8A6] animate-pulse' : 'bg-slate-600'}`} />
-                  <span className="text-[10px] text-slate-500 font-mono tracking-widest uppercase">
-                    {isToday ? 'Live Tracking Active' : `Archived Logs: ${selectedDate}`}
+            <section className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_520px] gap-7 xl:gap-10 items-end">
+              <div className="relative fracture-a">
+                <span className="section-label">Cognitive Surface / Local Index</span>
+                <h1 className="deco-title mt-3">
+                  Digital<br />Wellbeing
+                </h1>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <div className={`w-2.5 h-2.5 rounded-full ${isToday ? 'bg-[#1f7aff] live-indicator' : 'bg-slate-400'}`} />
+                  <span className="technical-line">
+                    {isToday ? 'LIVE_TRACKING=true / plate:00' : `ARCHIVE_DATE=${selectedDate}`}
                   </span>
+                  <span className="hidden sm:inline-block h-px w-20 bg-[rgba(17,22,29,0.18)]" />
+                  <span className="technical-line">TZ=LOCAL / SAMPLE=10s</span>
                 </div>
               </div>
 
-              {/* Horizontal Calendar Strip & compact picker */}
-              <div className="flex flex-wrap items-center gap-2 md:translate-y-2">
-                <div className="flex items-center gap-1 bg-[#121519]/60 p-1 rounded-xl border border-[#23272D]/40">
+              <div className="glass-card-24 p-3 sm:p-4 xl:translate-y-5 xl:-translate-x-5">
+                <div className="flex items-center justify-between gap-3 px-2 pb-3">
+                  <div>
+                    <div className="section-label">Temporal Controls</div>
+                    <div className="technical-line mt-1">choose window / preserve context</div>
+                  </div>
+                  {!isToday && (
+                    <button
+                      onClick={() => setSelectedDate(todayStr)}
+                      className="accent-glow flex items-center gap-1.5 px-3 py-2 rounded-2xl text-xs font-semibold font-mono uppercase tracking-[0.16em] transition-transform duration-300 hover:-translate-y-0.5"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" /> Today
+                    </button>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-1 min-w-[280px] items-center gap-1 bg-[rgba(17,22,29,0.06)] p-1 rounded-[18px] border border-[rgba(17,22,29,0.08)]">
                   {last7Days.map((day) => {
                     const isSel = selectedDate === day.dateStr;
                     const hasD = dateHasData.has(day.dateStr);
@@ -93,71 +115,70 @@ export function Dashboard() {
                       <button
                         key={day.dateStr}
                         onClick={() => setSelectedDate(day.dateStr)}
-                        className={`flex flex-col items-center justify-center w-11 py-1.5 rounded-lg border transition-all duration-200 ${
+                          className={`flex flex-col items-center justify-center flex-1 min-w-10 py-2 rounded-2xl border transition-all duration-300 ${
                           isSel
-                            ? 'bg-[#14B8A6]/15 border-[#14B8A6] text-white shadow-md'
-                            : 'bg-transparent border-transparent text-slate-500 hover:text-white'
+                              ? 'bg-[#11161d] border-[#11161d] text-white shadow-[0_12px_28px_rgba(17,22,29,0.18)] -translate-y-1'
+                              : 'bg-transparent border-transparent text-slate-500 hover:text-[#11161d]'
                         }`}
                       >
-                        <span className="text-[8px] font-mono uppercase tracking-wider font-semibold opacity-60">
+                          <span className="text-[8px] font-mono uppercase tracking-[0.16em] font-semibold opacity-60">
                           {day.dayName}
                         </span>
-                        <span className="text-sm font-bold mt-0.5">
+                          <span className="text-sm font-black mt-0.5">
                           {day.dayNum}
                         </span>
                         {hasD && (
-                          <span className={`w-1 h-1 rounded-full mt-1 ${isSel ? 'bg-[#14B8A6]' : 'bg-slate-600'}`} />
+                            <span className={`w-1 h-1 rounded-full mt-1 ${isSel ? 'bg-[#1f7aff]' : 'bg-slate-400'}`} />
                         )}
                       </button>
                     );
                   })}
                 </div>
 
-                {/* Calendar Input picker protruding right */}
-                <div className="relative flex items-center bg-[#15181C] border border-[#23272D] rounded-xl px-3 py-2 text-slate-400 hover:border-slate-500 hover:text-white transition-all shadow-md md:translate-x-1.5">
+                  <div className="relative flex items-center bg-white/70 border border-[rgba(17,22,29,0.12)] rounded-[18px] px-3 py-3 text-slate-500 hover:border-[#1f7aff]/50 hover:text-[#11161d] transition-all shadow-sm xl:translate-x-4">
                   <input
                     type="date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
                     max={todayStr}
-                    className="bg-transparent text-white focus:outline-none font-mono text-xs cursor-pointer w-28 border-none"
+                      className="bg-transparent text-[#11161d] focus:outline-none font-mono text-xs cursor-pointer w-30 border-none"
                   />
                   {dateHasData.has(selectedDate) && !last7Days.some(d => d.dateStr === selectedDate) && (
-                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#14B8A6] border border-[#0B0D0F]" />
+                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#1f7aff] border border-white" />
                   )}
                 </div>
-
-                {!isToday && (
-                  <button
-                    onClick={() => setSelectedDate(todayStr)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#14B8A6]/10 text-[#14B8A6] hover:bg-[#14B8A6]/20 transition-all text-xs font-semibold font-mono uppercase tracking-wider"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" /> Today
-                  </button>
-                )}
               </div>
-            </div>
+              </div>
+            </section>
 
             <StatsCards date={queryDate} isToday={isToday} />
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="h-80">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-7 items-stretch">
+              <div className="h-[21rem] lg:h-[22rem] min-w-0 min-h-0 fracture-a">
                 <WeeklyChart date={queryDate} />
               </div>
-              <HourlyHeatmap date={queryDate} />
+              <div className="min-w-0 min-h-0 fracture-c">
+                <HourlyHeatmap date={queryDate} />
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 items-stretch">
               <TopApps date={queryDate} />
-              <TopSitesCard date={queryDate} />
-              <Timeline date={queryDate} />
+              <div className="lg:translate-y-8">
+                <TopSitesCard date={queryDate} />
+              </div>
+              <div className="lg:-translate-y-5">
+                <Timeline date={queryDate} />
+              </div>
             </div>
-          </>
+          </div>
         )}
 
         {/* TAB 2: DIAGNOSTICS & DEBUG */}
         {activeTab === 'debug' && (
-          <DiagnosticsPanel />
+          <div className="motion-plate">
+            <DiagnosticsPanel />
+          </div>
         )}
 
       </main>

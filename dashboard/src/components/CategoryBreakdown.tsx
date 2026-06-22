@@ -3,7 +3,7 @@ import { api } from '../lib/api';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { formatDuration } from '../lib/time';
 
-const COLORS = ['#14B8A6', '#8B5CF6', '#F59E0B', '#EF4444', '#3B82F6', '#EC4899'];
+const COLORS = ['#1f7aff', '#11161d', '#66717e', '#9ca5ad', '#c6ccd1', '#dde1e4'];
 
 export function CategoryBreakdown({ date }: { date?: string }) {
   const { data } = useQuery({ queryKey: ['today', date], queryFn: () => api.getToday(date) });
@@ -21,21 +21,22 @@ export function CategoryBreakdown({ date }: { date?: string }) {
     const trackedSum = apps.reduce((s: number, a: { duration_seconds: number }) => s + a.duration_seconds, 0);
     const other = totalSeconds - trackedSum;
     if (other > 0) {
-      chartData.push({ name: 'Other', value: other, color: '#374151' });
+      chartData.push({ name: 'Other', value: other, color: '#cfd4d8' });
     }
   }
 
   return (
     <div className="glass-card p-6 h-full flex flex-col">
-      <h3 className="text-white font-semibold text-base mb-4">Usage Breakdown</h3>
+      <span className="section-label">Usage Breakdown</span>
+      <h3 className="mt-2 text-xl font-black text-[#11161d] tracking-[0.02em] mb-4">app mass</h3>
 
       <div className="flex items-center gap-6 flex-1">
         {/* Donut chart */}
         <div className="w-32 h-32 shrink-0">
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
             <PieChart>
               <Pie
-                data={chartData.length > 0 ? chartData : [{ name: 'None', value: 1, color: '#1A1D21' }]}
+                data={chartData.length > 0 ? chartData : [{ name: 'None', value: 1, color: 'rgba(17,22,29,0.08)' }]}
                 cx="50%"
                 cy="50%"
                 innerRadius={35}
@@ -43,7 +44,7 @@ export function CategoryBreakdown({ date }: { date?: string }) {
                 dataKey="value"
                 stroke="none"
               >
-                {(chartData.length > 0 ? chartData : [{ name: 'None', value: 1, color: '#1A1D21' }]).map((entry: { color: string }, i: number) => (
+                {(chartData.length > 0 ? chartData : [{ name: 'None', value: 1, color: 'rgba(17,22,29,0.08)' }]).map((entry: { color: string }, i: number) => (
                   <Cell key={i} fill={entry.color} />
                 ))}
               </Pie>
@@ -57,7 +58,7 @@ export function CategoryBreakdown({ date }: { date?: string }) {
             <div key={item.name} className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 min-w-0">
                 <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: item.color }} />
-                <span className="text-xs text-slate-400 truncate">{item.name}</span>
+                <span className="text-xs text-slate-600 truncate font-semibold">{item.name}</span>
               </div>
               <span className="text-xs text-slate-600 font-mono shrink-0">{formatDuration(item.value)}</span>
             </div>

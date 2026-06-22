@@ -14,44 +14,49 @@ export function WeeklyChart({ date }: { date?: string }) {
     cur.total_seconds > (chartData[best]?.total_seconds || 0) ? i : best, 0);
 
   return (
-    <div className="glass-card-green p-6 h-full flex flex-col">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-white font-semibold text-base">Weekly Report</h3>
-        <span className="text-xs text-[#14B8A6]">
+    <div className="glass-card-green p-6 h-full flex flex-col overflow-hidden">
+      <div className="absolute -right-14 top-10 h-24 w-52 rotate-[-8deg] border border-[rgba(17,22,29,0.1)] bg-white/30" aria-hidden="true" />
+      <div className="relative flex justify-between items-start mb-6 gap-5">
+        <div>
+          <span className="section-label">Weekly Report</span>
+          <h3 className="mt-2 text-2xl font-black tracking-[0.02em] text-[#11161d]">7-day load</h3>
+        </div>
+        <span className="text-xs text-[#1f7aff] font-mono font-bold bg-[#1f7aff]/10 px-3 py-1.5 rounded-full">
           {chartData.length > 0 ? `${chartData.reduce((s, d) => s + d.hours, 0).toFixed(1)}h total` : ''}
         </span>
       </div>
 
-      <div className="flex-1 min-h-0" style={{ minHeight: 200 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} barSize={28} margin={{ top: 4, right: 4, left: 4, bottom: 4 }}>
+      <div className="relative flex-1 min-h-0" style={{ minHeight: 200 }}>
+        <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+          <BarChart data={chartData} barSize={30} margin={{ top: 8, right: 6, left: 0, bottom: 0 }}>
             <XAxis
               dataKey="label"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: '#6B7280', fontSize: 11 }}
+              tick={{ fill: '#66717e', fontSize: 11, fontWeight: 700 }}
             />
             <Tooltip
-              cursor={{ fill: 'rgba(20,184,166,0.08)' }}
+              cursor={{ fill: 'rgba(31,122,255,0.08)' }}
               content={({ active, payload }) => {
                 if (!active || !payload?.length) return null;
                 const d = payload[0].payload as { label: string; hours: number };
                 return (
-                  <div className="bg-[#1A2725] border border-[#233531] px-3 py-2 rounded-lg shadow-xl">
-                    <div className="text-white text-sm font-medium">{d.label}</div>
-                    <div className="text-[#14B8A6] text-xs">{d.hours}h screen time</div>
+                  <div className="bg-white/90 border border-[rgba(17,22,29,0.12)] px-3 py-2 rounded-2xl shadow-xl backdrop-blur-xl">
+                    <div className="text-[#11161d] text-sm font-bold">{d.label}</div>
+                    <div className="text-[#1f7aff] text-xs font-mono">{d.hours}h screen time</div>
                   </div>
                 );
               }}
             />
-            <Bar dataKey="hours" radius={[6, 6, 6, 6]}>
+            <Bar dataKey="hours" radius={[10, 10, 2, 2]}>
               {chartData.map((_, i) => (
-                <Cell key={i} fill={i === maxIdx ? '#14B8A6' : 'rgba(255,255,255,0.15)'} />
+                <Cell key={i} fill={i === maxIdx ? '#1f7aff' : 'rgba(17,22,29,0.14)'} />
               ))}
             </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
+      <div className="technical-line mt-3 data-bleed">WEEK_PACKET=[{chartData.map(d => d.hours.toFixed(1)).join(', ')}]</div>
     </div>
   );
 }
