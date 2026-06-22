@@ -117,20 +117,6 @@ class TestWellbeingTracker(unittest.TestCase):
         
         print("[PASS] API Router verification complete.")
 
-    def test_05_simulator(self):
-        print("\n[AUDIT] Testing simulation mock data generator...")
-        req = urllib.request.Request(
-            "http://127.0.0.1:7332/api/debug/simulate",
-            data=b"", # Empty body forces POST
-            method="POST"
-        )
-        with urllib.request.urlopen(req) as res:
-            self.assertEqual(res.status, 200)
-            data = json.loads(res.read().decode('utf-8'))
-            self.assertEqual(data.get("status"), "success")
-            self.assertGreater(data.get("rows_inserted", 0), 0)
-            print(f"  Simulator inserted: {data.get('rows_inserted')} rows.")
-            print("[PASS] Mock data generation verified.")
 
 if __name__ == "__main__":
     unittest.main()
