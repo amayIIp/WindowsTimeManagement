@@ -19,9 +19,9 @@ export function WeeklyChart({ date }: { date?: string }) {
       <div className="relative flex justify-between items-start mb-6 gap-5">
         <div>
           <span className="section-label">Weekly Report</span>
-          <h3 className="mt-2 text-2xl font-black tracking-[0.02em] text-[#11161d]">7-day load</h3>
+          <h3 className="mt-2 text-2xl font-black tracking-[0.02em] text-white">7-day load</h3>
         </div>
-        <span className="text-xs text-[#1f7aff] font-mono font-bold bg-[#1f7aff]/10 px-3 py-1.5 rounded-full">
+        <span className="text-xs text-white font-mono font-bold bg-[#1f7aff]/10 px-3 py-1.5 rounded-full">
           {chartData.length > 0 ? `${chartData.reduce((s, d) => s + d.hours, 0).toFixed(1)}h total` : ''}
         </span>
       </div>
@@ -42,8 +42,8 @@ export function WeeklyChart({ date }: { date?: string }) {
                 const d = payload[0].payload as { label: string; hours: number };
                 return (
                   <div className="bg-white/90 border border-[rgba(17,22,29,0.12)] px-3 py-2 rounded-2xl shadow-xl backdrop-blur-xl">
-                    <div className="text-[#11161d] text-sm font-bold">{d.label}</div>
-                    <div className="text-[#1f7aff] text-xs font-mono">{d.hours}h screen time</div>
+                    <div className="text-white text-sm font-bold">{d.label}</div>
+                    <div className="text-white text-xs font-mono">{d.hours}h screen time</div>
                   </div>
                 );
               }}
@@ -56,7 +56,7 @@ export function WeeklyChart({ date }: { date?: string }) {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="text-xs text-slate-400 mt-2 font-mono mt-3 ">WEEK_PACKET=[{chartData.map(d => d.hours.toFixed(1)).join(', ')}]</div>
+      <div className="text-xs text-white mt-2 font-mono mt-3 ">WEEK_PACKET=[{chartData.map(d => d.hours.toFixed(1)).join(', ')}]</div>
     </div>
   );
 }

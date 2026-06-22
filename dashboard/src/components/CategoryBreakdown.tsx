@@ -28,7 +28,7 @@ export function CategoryBreakdown({ date }: { date?: string }) {
   return (
     <div className="glass-card p-6 h-full flex flex-col">
       <span className="section-label">Usage Breakdown</span>
-      <h3 className="mt-2 text-xl font-black text-[#11161d] tracking-[0.02em] mb-4">app mass</h3>
+      <h3 className="mt-2 text-xl font-black text-white tracking-[0.02em] mb-4">app mass</h3>
 
       <div className="flex items-center gap-6 flex-1">
         {/* Donut chart */}
@@ -58,14 +58,14 @@ export function CategoryBreakdown({ date }: { date?: string }) {
             <div key={item.name} className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 min-w-0">
                 <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: item.color }} />
-                <span className="text-xs text-slate-600 truncate font-semibold">{item.name}</span>
+                <span className="text-xs text-white truncate font-semibold">{item.name}</span>
               </div>
-              <span className="text-xs text-slate-600 font-mono shrink-0">{formatDuration(item.value)}</span>
+              <span className="text-xs text-white font-mono shrink-0">{formatDuration(item.value)}</span>
             </div>
           ))}
 
           {chartData.length === 0 && (
-            <span className="text-xs text-slate-600">No data yet</span>
+            <span className="text-xs text-white">No data yet</span>
           )}
         </div>
       </div>

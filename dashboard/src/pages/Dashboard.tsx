@@ -82,11 +82,11 @@ export function Dashboard() {
                 </h1>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <div className={`w-2.5 h-2.5 rounded-full ${isToday ? 'bg-[#1f7aff] live-indicator' : 'bg-slate-400'}`} />
-                  <span className="text-xs text-slate-400 mt-2 font-mono">
+                  <span className="text-xs text-white mt-2 font-mono">
                     {isToday ? 'LIVE_TRACKING=true / plate:00' : `ARCHIVE_DATE=${selectedDate}`}
                   </span>
                   <span className="hidden sm:inline-block h-px w-20 bg-[rgba(17,22,29,0.18)]" />
-                  <span className="text-xs text-slate-400 mt-2 font-mono">TZ=LOCAL / SAMPLE=10s</span>
+                  <span className="text-xs text-white mt-2 font-mono">TZ=LOCAL / SAMPLE=10s</span>
                 </div>
               </div>
 
@@ -94,7 +94,7 @@ export function Dashboard() {
                 <div className="flex items-center justify-between gap-3 px-2 pb-3">
                   <div>
                     <div className="section-label">Temporal Controls</div>
-                    <div className="text-xs text-slate-400 mt-2 font-mono mt-1">choose window / preserve context</div>
+                    <div className="text-xs text-white mt-2 font-mono mt-1">choose window / preserve context</div>
                   </div>
                   {!isToday && (
                     <button
@@ -118,7 +118,7 @@ export function Dashboard() {
                           className={`flex flex-col items-center justify-center flex-1 min-w-10 py-2 rounded-2xl border transition-all duration-300 ${
                           isSel
                               ? 'bg-[#11161d] border-[#11161d] text-white shadow-[0_12px_28px_rgba(17,22,29,0.18)] -translate-y-1'
-                              : 'bg-transparent border-transparent text-slate-500 hover:text-[#11161d]'
+                              : 'bg-transparent border-transparent text-white hover:text-white'
                         }`}
                       >
                           <span className="text-[8px] font-mono uppercase tracking-[0.16em] font-semibold opacity-60">
@@ -135,13 +135,13 @@ export function Dashboard() {
                   })}
                 </div>
 
-                  <div className="relative flex items-center bg-white/70 border border-[rgba(17,22,29,0.12)] rounded-[18px] px-3 py-3 text-slate-500 hover:border-[#1f7aff]/50 hover:text-[#11161d] transition-all shadow-sm xl:translate-x-4">
+                  <div className="relative flex items-center bg-white/70 border border-[rgba(17,22,29,0.12)] rounded-[18px] px-3 py-3 text-white hover:border-[#1f7aff]/50 hover:text-white transition-all shadow-sm xl:translate-x-4">
                   <input
                     type="date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
                     max={todayStr}
-                      className="bg-transparent text-[#11161d] focus:outline-none font-mono text-xs cursor-pointer w-30 border-none"
+                      className="bg-transparent text-white focus:outline-none font-mono text-xs cursor-pointer w-30 border-none"
                   />
                   {dateHasData.has(selectedDate) && !last7Days.some(d => d.dateStr === selectedDate) && (
                       <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#1f7aff] border border-white" />

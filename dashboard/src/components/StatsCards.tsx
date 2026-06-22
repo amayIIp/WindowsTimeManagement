@@ -46,31 +46,31 @@ export function StatsCards({ date, isToday }: StatsCardsProps) {
             <span className="section-label">Total Screen Time</span>
           </div>
           {isToday && (
-            <span className="text-[9px] font-mono bg-[#1f7aff]/10 text-[#1f7aff] px-2 py-1 rounded-full border border-[#1f7aff]/20">
+            <span className="text-[9px] font-mono bg-[#1f7aff]/10 text-white px-2 py-1 rounded-full border border-[#1f7aff]/20">
               ACTIVE
             </span>
           )}
         </div>
         <div className="mt-4">
-          <div className="text-5xl sm:text-6xl font-black text-[#11161d] tracking-[0.02em] leading-none">
+          <div className="text-5xl sm:text-6xl font-black text-white tracking-[0.02em] leading-none">
             {formatDuration(totalSeconds)}
           </div>
-          <div className="text-xs text-slate-400 mt-2 font-mono mt-3">SECONDS_TOTAL={totalSeconds} / TODAY={String(isToday)}</div>
+          <div className="text-xs text-white mt-2 font-mono mt-3">SECONDS_TOTAL={totalSeconds} / TODAY={String(isToday)}</div>
         </div>
       </div>
 
       <div className="glass-card p-5 relative overflow-hidden group min-h-[150px] flex flex-col justify-between md:translate-y-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-white border border-[rgba(17,22,29,0.1)] flex items-center justify-center">
-            <Monitor className="w-4.5 h-4.5 text-[#1f7aff]" />
+            <Monitor className="w-4.5 h-4.5 text-white" />
           </div>
           <span className="section-label">Apps Used</span>
         </div>
         <div className="mt-4">
-          <div className="text-5xl font-black text-[#11161d] tracking-[0.04em]">
+          <div className="text-5xl font-black text-white tracking-[0.04em]">
             {appsCount}
           </div>
-          <div className="text-xs text-slate-400 mt-2 font-mono mt-2">PROC_COUNT={appsCount}</div>
+          <div className="text-xs text-white mt-2 font-mono mt-2">PROC_COUNT={appsCount}</div>
         </div>
       </div>
 
@@ -79,13 +79,13 @@ export function StatsCards({ date, isToday }: StatsCardsProps) {
           <div className="w-10 h-10 rounded-none bg-[#1f7aff] flex items-center justify-center">
             <TrendingUp className="w-4.5 h-4.5 text-white" />
           </div>
-          <span className="text-[10px] tracking-[0.18em] text-slate-400 uppercase font-mono font-bold">Peak Hour</span>
+          <span className="text-[10px] tracking-[0.18em] text-white uppercase font-mono font-bold">Peak Hour</span>
         </div>
         <div className="mt-4">
           <div className="text-4xl font-black text-white tracking-[0.03em] font-mono">
             {peakHour}
           </div>
-          <div className="text-xs text-slate-400 mt-2 font-mono mt-2">MAX_BIN="{peakHour}"</div>
+          <div className="text-xs text-white mt-2 font-mono mt-2">MAX_BIN="{peakHour}"</div>
         </div>
       </div>
     </div>

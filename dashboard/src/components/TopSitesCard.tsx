@@ -13,9 +13,9 @@ export function TopSitesCard({ date }: { date?: string }) {
       <div className="flex justify-between items-start mb-6 gap-4">
         <div>
           <span className="section-label">Top Websites</span>
-          <h3 className="mt-2 text-xl font-black text-[#11161d] tracking-[0.02em]">domain drift</h3>
+          <h3 className="mt-2 text-xl font-black text-white tracking-[0.02em]">domain drift</h3>
         </div>
-        <span className="text-xs text-slate-500 font-mono">{sites.length} domains</span>
+        <span className="text-xs text-white font-mono">{sites.length} domains</span>
       </div>
 
       <div className="flex flex-col gap-3.5 flex-1">
@@ -25,14 +25,14 @@ export function TopSitesCard({ date }: { date?: string }) {
             <div key={site.domain} className={`group ${i === 1 ? 'md:translate-x-4' : ''}`}>
               <div className="flex justify-between items-center mb-1.5">
                 <div className="flex items-center gap-2.5">
-                  <span className={`w-6 h-6 rounded-lg text-[10px] flex items-center justify-center font-mono ${i === 0 ? 'bg-[#1f7aff] text-white' : 'bg-[rgba(17,22,29,0.07)] text-slate-500'}`}>
+                  <span className={`w-6 h-6 rounded-lg text-[10px] flex items-center justify-center font-mono ${i === 0 ? 'bg-[#1f7aff] text-white' : 'bg-[rgba(17,22,29,0.07)] text-white'}`}>
                     {i + 1}
                   </span>
-                  <span className="text-sm text-slate-700 group-hover:text-[#11161d] font-semibold transition-colors truncate max-w-40">
+                  <span className="text-sm text-white group-hover:text-white font-semibold transition-colors truncate max-w-40">
                     {site.domain}
                   </span>
                 </div>
-                <span className="text-xs text-slate-500 font-mono shrink-0">{formatDuration(site.duration_seconds)}</span>
+                <span className="text-xs text-white font-mono shrink-0">{formatDuration(site.duration_seconds)}</span>
               </div>
               <div className="w-full h-1.5 rounded-full bg-[rgba(17,22,29,0.08)] overflow-hidden">
                 <div
@@ -45,12 +45,12 @@ export function TopSitesCard({ date }: { date?: string }) {
         })}
 
         {sites.length === 0 && (
-          <div className="flex-1 flex items-center justify-center text-slate-500 text-sm">
+          <div className="flex-1 flex items-center justify-center text-white text-sm">
             No browsing data recorded
           </div>
         )}
       </div>
-      <div className="text-xs text-slate-400 mt-2 font-mono mt-5 ">DNS_BUCKETS={sites.length} / TOP_DOMAIN="{sites[0]?.domain || 'null'}"</div>
+      <div className="text-xs text-white mt-2 font-mono mt-5 ">DNS_BUCKETS={sites.length} / TOP_DOMAIN="{sites[0]?.domain || 'null'}"</div>
     </div>
   );
 }

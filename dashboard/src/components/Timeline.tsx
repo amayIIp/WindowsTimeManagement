@@ -18,12 +18,12 @@ export function Timeline({ date }: { date?: string }) {
     <div className="glass-card p-6 h-full flex flex-col min-h-[380px]">
       <div className="relative flex justify-between items-start mb-5 border-b border-white/10 pb-4 gap-4">
         <div>
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.18em] font-mono">
+          <span className="text-[10px] text-white font-bold uppercase tracking-[0.18em] font-mono">
             System telemetry
           </span>
           <h3 className="mt-2 text-xl font-black text-white tracking-[0.02em]">event trace</h3>
         </div>
-        <span className="text-[10px] text-[#1f7aff] font-mono border border-[#1f7aff]/35 px-2 py-1">[{events.length} LOGS]</span>
+        <span className="text-[10px] text-white font-mono border border-[#1f7aff]/35 px-2 py-1">[{events.length} LOGS]</span>
       </div>
 
       <div className="flex flex-col gap-0 flex-1 overflow-y-auto max-h-80 pr-1 select-text selection:bg-[#1f7aff]/20">
@@ -32,7 +32,7 @@ export function Timeline({ date }: { date?: string }) {
             key={`${ev.start_time}-${i}`}
             className={`flex gap-4 group py-2.5 border-b border-white/10 last:border-0 hover:bg-white/[0.04] px-2 transition-all duration-300 ${i % 4 === 1 ? 'md:translate-x-3' : ''}`}
           >
-            <span className="text-[9px] text-slate-600 font-mono shrink-0 select-none">
+            <span className="text-[9px] text-white font-mono shrink-0 select-none">
               {String(events.length - i).padStart(3, '0')}
             </span>
 
@@ -41,17 +41,17 @@ export function Timeline({ date }: { date?: string }) {
                 <span className="text-white font-bold uppercase text-[11px] truncate">
                   {ev.exe.replace('.exe', '')}
                 </span>
-                <span className="text-[10px] text-slate-500 font-mono shrink-0">
+                <span className="text-[10px] text-white font-mono shrink-0">
                   {formatTime(ev.start_time)}
                 </span>
               </div>
 
-              <div className="text-[10px] text-slate-400 mt-1 truncate whitespace-nowrap overflow-x-hidden" title={ev.title || undefined}>
+              <div className="text-[10px] text-white mt-1 truncate whitespace-nowrap overflow-x-hidden" title={ev.title || undefined}>
                 {ev.url || ev.title || '--'}
               </div>
 
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-[9px] text-[#1f7aff] uppercase bg-[#1f7aff]/10 px-1 py-0.2 select-none">
+                <span className="text-[9px] text-white uppercase bg-[#1f7aff]/10 px-1 py-0.2 select-none">
                   {formatDuration(ev.duration_seconds)}
                 </span>
               </div>
@@ -60,12 +60,12 @@ export function Timeline({ date }: { date?: string }) {
         ))}
 
         {events.length === 0 && (
-          <div className="flex-1 flex items-center justify-center text-slate-600 font-mono text-xs py-8">
+          <div className="flex-1 flex items-center justify-center text-white font-mono text-xs py-8">
             [NULL ACTIVITY LOG]
           </div>
         )}
       </div>
-      <div className="text-xs text-slate-400 mt-2 font-mono mt-4 ">TRACE_REVERSED=true / BUFFER=20 / STREAM=local</div>
+      <div className="text-xs text-white mt-2 font-mono mt-4 ">TRACE_REVERSED=true / BUFFER=20 / STREAM=local</div>
     </div>
   );
 }

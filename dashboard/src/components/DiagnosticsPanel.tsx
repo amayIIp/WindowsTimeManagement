@@ -26,8 +26,8 @@ export function DiagnosticsPanel() {
 
   if (statusLoading) {
     return (
-      <div className="flex items-center justify-center py-24 text-slate-500">
-        <RotateCw className="w-6 h-6 animate-spin mr-3 text-[#1f7aff]" />
+      <div className="flex items-center justify-center py-24 text-white">
+        <RotateCw className="w-6 h-6 animate-spin mr-3 text-white" />
         Loading diagnostics data...
       </div>
     );
@@ -35,8 +35,8 @@ export function DiagnosticsPanel() {
 
   if (statusErr || !status) {
     return (
-      <div className="glass-card p-6 border-[#ffb000]/40 text-[#7a4b00] flex items-center gap-3">
-        <AlertTriangle className="w-5 h-5 text-[#ffb000]" />
+      <div className="glass-card p-6 border-[#ffb000]/40 text-white flex items-center gap-3">
+        <AlertTriangle className="w-5 h-5 text-white" />
         Failed to connect to tracker backend. Is WellbeingTracker server running?
       </div>
     );
@@ -54,9 +54,9 @@ export function DiagnosticsPanel() {
 
   const getLogLineStyle = (line: string) => {
     if (line.includes('[ERROR]')) return 'text-red-300 font-semibold';
-    if (line.includes('[WARNING]')) return 'text-[#ffcf70]';
-    if (line.includes('[DEBUG]')) return 'text-slate-500';
-    return 'text-slate-300';
+    if (line.includes('[WARNING]')) return 'text-white';
+    if (line.includes('[DEBUG]')) return 'text-white';
+    return 'text-white';
   };
 
   const metrics = [
@@ -95,7 +95,7 @@ export function DiagnosticsPanel() {
       <section className="relative ">
         <span className="section-label">Diagnostics / Machine Room</span>
         <h1 className="text-4xl font-bold tracking-tight text-white mt-3">System<br />Trace</h1>
-        <div className="text-xs text-slate-400 mt-2 font-mono mt-5">REFRESH=3000ms / LOG_WINDOW=200 / BACKEND=tracker</div>
+        <div className="text-xs text-white mt-2 font-mono mt-5">REFRESH=3000ms / LOG_WINDOW=200 / BACKEND=tracker</div>
       </section>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-7">
@@ -105,10 +105,10 @@ export function DiagnosticsPanel() {
             <div key={metric.label} className={`glass-card p-5 min-h-[150px] ${metric.offset}`}>
               <div className="flex items-center justify-between mb-5">
                 <span className="section-label">{metric.label}</span>
-                <Icon className={`w-5 h-5 ${i === 0 ? 'text-[#1f7aff]' : 'text-slate-500'}`} />
+                <Icon className={`w-5 h-5 ${i === 0 ? 'text-white' : 'text-white'}`} />
               </div>
-              <div className="text-3xl font-black text-[#11161d] font-mono tracking-[0.02em]">{metric.value}</div>
-              <span className="text-xs text-slate-400 mt-2 font-mono mt-3 block">{metric.meta}</span>
+              <div className="text-3xl font-black text-white font-mono tracking-[0.02em]">{metric.value}</div>
+              <span className="text-xs text-white mt-2 font-mono mt-3 block">{metric.meta}</span>
             </div>
           );
         })}
@@ -120,24 +120,24 @@ export function DiagnosticsPanel() {
             <span className="section-label">Environment Info</span>
             <div className="mt-5 space-y-3 text-sm">
               <div className="flex justify-between gap-4 border-b border-[rgba(17,22,29,0.1)] pb-2">
-                <span className="text-slate-500">Platform</span>
-                <span className="text-[#11161d] font-mono font-semibold text-right">{status.os}</span>
+                <span className="text-white">Platform</span>
+                <span className="text-white font-mono font-semibold text-right">{status.os}</span>
               </div>
               <div className="flex justify-between gap-4 border-b border-[rgba(17,22,29,0.1)] pb-2">
-                <span className="text-slate-500">Python Version</span>
-                <span className="text-[#11161d] font-mono text-xs max-w-48 truncate text-right" title={status.python_version}>
+                <span className="text-white">Python Version</span>
+                <span className="text-white font-mono text-xs max-w-48 truncate text-right" title={status.python_version}>
                   {status.python_version.split(' ')[0]}
                 </span>
               </div>
               <div className="flex justify-between gap-4 border-b border-[rgba(17,22,29,0.1)] pb-2">
-                <span className="text-slate-500">DB Location</span>
-                <span className="text-[#11161d] font-mono text-xs max-w-48 truncate text-right" title={status.db_path}>
+                <span className="text-white">DB Location</span>
+                <span className="text-white font-mono text-xs max-w-48 truncate text-right" title={status.db_path}>
                   {status.db_path}
                 </span>
               </div>
               <div className="flex justify-between gap-4 pb-1">
-                <span className="text-slate-500">Log Location</span>
-                <span className="text-[#11161d] font-mono text-xs max-w-48 truncate text-right" title={status.log_path}>
+                <span className="text-white">Log Location</span>
+                <span className="text-white font-mono text-xs max-w-48 truncate text-right" title={status.log_path}>
                   {status.log_path}
                 </span>
               </div>
@@ -145,25 +145,25 @@ export function DiagnosticsPanel() {
           </div>
 
           <div className="glass-card p-6 ">
-            <span className="text-[10px] tracking-[0.18em] text-slate-400 uppercase font-mono font-bold">Tracking Configuration</span>
+            <span className="text-[10px] tracking-[0.18em] text-white uppercase font-mono font-bold">Tracking Configuration</span>
             <div className="mt-5 space-y-3 text-sm relative">
               <div className="flex justify-between gap-4 border-b border-white/10 pb-2">
-                <span className="text-slate-400">Idle Timeout</span>
+                <span className="text-white">Idle Timeout</span>
                 <span className="text-white font-mono">{status.config.idle_timeout_seconds}s</span>
               </div>
               <div className="flex justify-between gap-4 border-b border-white/10 pb-2">
-                <span className="text-slate-400">Poll Interval</span>
+                <span className="text-white">Poll Interval</span>
                 <span className="text-white font-mono">{status.config.poll_interval_ms}ms</span>
               </div>
               <div className="flex justify-between gap-4 border-b border-white/10 pb-2">
-                <span className="text-slate-400">Store Full URL</span>
+                <span className="text-white">Store Full URL</span>
                 <span className="text-white font-mono">{status.config.store_full_url ? 'true' : 'false'}</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-slate-400 mb-2">Tracked Browsers ({status.config.tracked_browsers.length})</span>
+                <span className="text-white mb-2">Tracked Browsers ({status.config.tracked_browsers.length})</span>
                 <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1">
                   {status.config.tracked_browsers.map((b: string) => (
-                    <span key={b} className="text-[10px] bg-white/[0.06] border border-white/10 text-slate-300 px-2 py-0.5 rounded font-mono">
+                    <span key={b} className="text-[10px] bg-white/[0.06] border border-white/10 text-white px-2 py-0.5 rounded font-mono">
                       {b}
                     </span>
                   ))}
@@ -178,7 +178,7 @@ export function DiagnosticsPanel() {
             <div>
               <div className="flex items-center gap-2">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#1f7aff] live-indicator" />
-                <span className="text-[10px] tracking-[0.18em] text-slate-400 uppercase font-mono font-bold">Live Activity Log</span>
+                <span className="text-[10px] tracking-[0.18em] text-white uppercase font-mono font-bold">Live Activity Log</span>
               </div>
               <h3 className="mt-2 text-2xl font-black text-white tracking-[0.02em]">terminal plate</h3>
             </div>
@@ -188,7 +188,7 @@ export function DiagnosticsPanel() {
                 setLogRefreshKey(prev => prev + 1);
               }}
               aria-label="Refresh logs"
-              className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/[0.06] transition-colors"
+              className="text-white hover:text-white p-2 rounded-xl hover:bg-white/[0.06] transition-colors"
               title="Refresh logs"
             >
               <RotateCw className="w-4 h-4" />
@@ -197,7 +197,7 @@ export function DiagnosticsPanel() {
 
           <div className="flex-1 bg-[#080b10] border border-white/10 rounded-none p-4 font-mono text-[11px] overflow-y-auto space-y-1.5 select-text selection:bg-[#1f7aff]/20 relative">
             {logs.length === 0 ? (
-              <div className="text-slate-600 text-center py-10">No log entries found.</div>
+              <div className="text-white text-center py-10">No log entries found.</div>
             ) : (
               logs.map((line, i) => (
                 <div key={i} className={`whitespace-pre-wrap ${getLogLineStyle(line)}`}>
@@ -207,7 +207,7 @@ export function DiagnosticsPanel() {
             )}
             <div ref={terminalEndRef} />
           </div>
-          <span className="text-xs text-slate-400 mt-2 font-mono mt-3 text-right">Showing last 200 log entries / auto-scroll=true</span>
+          <span className="text-xs text-white mt-2 font-mono mt-3 text-right">Showing last 200 log entries / auto-scroll=true</span>
         </div>
       </div>
     </div>

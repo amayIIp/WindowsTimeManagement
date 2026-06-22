@@ -27,14 +27,14 @@ export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
             <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-[#1f7aff] ring-4 ring-[#eef0ed]" />
           </div>
           <div>
-            <span className="block text-lg font-black tracking-[0.08em] text-[#11161d] uppercase">Wellbeing</span>
-            <span className="text-xs text-slate-400 mt-2 font-mono hidden sm:block">shell/deconstructed-minimal</span>
+            <span className="block text-lg font-black tracking-[0.08em] text-white uppercase">Wellbeing</span>
+            <span className="text-xs text-white mt-2 font-mono hidden sm:block">shell/deconstructed-minimal</span>
           </div>
         </div>
 
         <div className="hidden md:flex flex-col border-l border-[rgba(17,22,29,0.12)] pl-5 -translate-y-1">
-          <span className="text-base font-black text-[#11161d] tracking-tight">{timeStr}</span>
-          <span className="text-xs text-slate-500 font-medium">{dateStr}</span>
+          <span className="text-base font-black text-white tracking-tight">{timeStr}</span>
+          <span className="text-xs text-white font-medium">{dateStr}</span>
         </div>
       </div>
 
@@ -45,7 +45,7 @@ export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
           className={`flex items-center gap-2 px-3 sm:px-5 py-2.5 rounded-[18px] font-semibold text-xs sm:text-sm transition-all duration-300 ${
             activeTab === 'dashboard' 
               ? 'accent-glow -translate-y-0.5' 
-              : 'text-slate-500 hover:text-[#11161d]'
+              : 'text-white hover:text-white'
           }`}
         >
           <Activity className="w-4 h-4" /> <span className="hidden sm:inline">Home</span>
@@ -56,7 +56,7 @@ export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
           className={`flex items-center gap-2 px-3 sm:px-5 py-2.5 rounded-[18px] font-semibold text-xs sm:text-sm transition-all duration-300 ${
             activeTab === 'debug' 
               ? 'accent-glow -translate-y-0.5' 
-              : 'text-slate-500 hover:text-[#11161d]'
+              : 'text-white hover:text-white'
           }`}
         >
           <ShieldAlert className="w-4 h-4" /> <span className="hidden sm:inline">Diagnostics</span>

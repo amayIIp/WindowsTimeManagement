@@ -18,24 +18,24 @@ export function LiveActivity() {
 
       {current ? (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-[220px_minmax(0,1fr)_auto] md:items-center">
-          <div className="flex items-center gap-2 text-sm text-[#11161d] min-w-0">
-            <Monitor className="w-4 h-4 text-[#1f7aff] shrink-0" />
+          <div className="flex items-center gap-2 text-sm text-white min-w-0">
+            <Monitor className="w-4 h-4 text-white shrink-0" />
             <span className="font-black truncate tracking-tight">{current.exe.replace('.exe', '')}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-slate-600 min-w-0">
+          <div className="flex items-center gap-2 text-sm text-white min-w-0">
             <Globe className="w-4 h-4 shrink-0" />
             <span className="truncate">{current.title || 'No title'}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-[#1f7aff]">
+          <div className="flex items-center gap-2 text-sm text-white">
             <Clock className="w-4 h-4 shrink-0" />
             <span className="font-mono font-bold">{formatDuration(current.duration_seconds)}</span>
           </div>
-          <div className="text-xs text-slate-400 mt-2 font-mono  md:col-span-3">
+          <div className="text-xs text-white mt-2 font-mono  md:col-span-3">
             CURRENT_PROCESS="{current.exe}" / WINDOW_TITLE="{current.title || 'null'}"
           </div>
         </div>
       ) : (
-        <span className="text-sm text-slate-500">Waiting for activity signal...</span>
+        <span className="text-sm text-white">Waiting for activity signal...</span>
       )}
     </div>
   );

@@ -17,10 +17,10 @@ export function HourlyHeatmap({ date }: { date?: string }) {
     <div className="glass-card p-6 h-full">
       <div className="relative flex items-start justify-between gap-4 mb-5">
         <div>
-          <span className="text-[10px] tracking-[0.18em] text-slate-400 uppercase font-mono font-bold">Hourly Heatmap</span>
+          <span className="text-[10px] tracking-[0.18em] text-white uppercase font-mono font-bold">Hourly Heatmap</span>
           <h3 className="mt-2 text-2xl font-black text-white tracking-[0.02em]">activity bins</h3>
         </div>
-        <span className="text-[10px] font-mono text-[#1f7aff] border border-[#1f7aff]/35 px-2 py-1">24H</span>
+        <span className="text-[10px] font-mono text-white border border-[#1f7aff]/35 px-2 py-1">24H</span>
       </div>
       <div className="relative grid grid-cols-12 gap-1.5">
         {hourly.map(h => {
@@ -41,22 +41,22 @@ export function HourlyHeatmap({ date }: { date?: string }) {
                 title={`${formatHour(h.hour)}: ${Math.round(h.total_seconds / 60)}min`}
               />
               {h.hour % 3 === 0 && (
-                <span className="text-[10px] text-slate-500 font-mono">{formatHour(h.hour)}</span>
+                <span className="text-[10px] text-white font-mono">{formatHour(h.hour)}</span>
               )}
             </div>
           );
         })}
       </div>
       <div className="flex items-center gap-2 mt-5 justify-end">
-        <span className="text-[10px] text-slate-500 font-mono">LOW</span>
+        <span className="text-[10px] text-white font-mono">LOW</span>
         <div className="w-3 h-3 rounded-sm bg-white/[0.06]" />
         <div className="w-3 h-3 rounded-sm bg-[#1f7aff]/25" />
         <div className="w-3 h-3 rounded-sm bg-[#1f7aff]/50" />
         <div className="w-3 h-3 rounded-sm bg-[#1f7aff]/75" />
         <div className="w-3 h-3 rounded-sm bg-[#1f7aff]" />
-        <span className="text-[10px] text-slate-500 font-mono">HIGH</span>
+        <span className="text-[10px] text-white font-mono">HIGH</span>
       </div>
-      <div className="text-xs text-slate-400 mt-2 font-mono mt-4 ">MAX_SECONDS={maxSec} / GRID=12x2 / SIGNAL=discrete</div>
+      <div className="text-xs text-white mt-2 font-mono mt-4 ">MAX_SECONDS={maxSec} / GRID=12x2 / SIGNAL=discrete</div>
     </div>
   );
 }

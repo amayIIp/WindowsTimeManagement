@@ -12,9 +12,9 @@ export function TopApps({ date }: { date?: string }) {
       <div className="flex justify-between items-start mb-6 gap-4">
         <div>
           <span className="section-label">Top Applications</span>
-          <h3 className="mt-2 text-xl font-black text-[#11161d] tracking-[0.02em]">process weight</h3>
+          <h3 className="mt-2 text-xl font-black text-white tracking-[0.02em]">process weight</h3>
         </div>
-        <span className="text-xs text-slate-500 font-mono">{apps.length} tracked</span>
+        <span className="text-xs text-white font-mono">{apps.length} tracked</span>
       </div>
 
       <div className="flex flex-col gap-3.5 flex-1">
@@ -26,11 +26,11 @@ export function TopApps({ date }: { date?: string }) {
               <div className="flex justify-between items-center mb-1.5">
                 <div className="flex items-center gap-2.5">
                   <div className={`w-2.5 h-2.5 rounded-full ${isLead ? 'bg-[#1f7aff]' : 'bg-slate-400'}`} />
-                  <span className="text-sm text-slate-700 group-hover:text-[#11161d] font-semibold transition-colors truncate max-w-40">
+                  <span className="text-sm text-white group-hover:text-white font-semibold transition-colors truncate max-w-40">
                     {app.name.replace('.exe', '')}
                   </span>
                 </div>
-                <span className="text-xs text-slate-500 font-mono shrink-0">{formatDuration(app.duration_seconds)}</span>
+                <span className="text-xs text-white font-mono shrink-0">{formatDuration(app.duration_seconds)}</span>
               </div>
               <div className="w-full h-2 rounded-full bg-[rgba(17,22,29,0.08)] overflow-hidden">
                 <div
@@ -43,12 +43,12 @@ export function TopApps({ date }: { date?: string }) {
         })}
 
         {apps.length === 0 && (
-          <div className="flex-1 flex items-center justify-center text-slate-500 text-sm">
+          <div className="flex-1 flex items-center justify-center text-white text-sm">
             No activity recorded yet
           </div>
         )}
       </div>
-      <div className="text-xs text-slate-400 mt-2 font-mono mt-5 ">TOP_PROC_LIMIT=6 / PEAK_SECONDS={maxDuration}</div>
+      <div className="text-xs text-white mt-2 font-mono mt-5 ">TOP_PROC_LIMIT=6 / PEAK_SECONDS={maxDuration}</div>
     </div>
   );
 }
