@@ -14,7 +14,7 @@ export function WeeklyChart({ date }: { date?: string }) {
     cur.total_seconds > (chartData[best]?.total_seconds || 0) ? i : best, 0);
 
   return (
-    <div className="glass-card-green p-6 h-full flex flex-col overflow-hidden">
+    <div className="glass-card p-6 h-full flex flex-col overflow-hidden">
       <div className="absolute -right-14 top-10 h-24 w-52 rotate-[-8deg] border border-[rgba(17,22,29,0.1)] bg-white/30" aria-hidden="true" />
       <div className="relative flex justify-between items-start mb-6 gap-5">
         <div>
@@ -56,7 +56,7 @@ export function WeeklyChart({ date }: { date?: string }) {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="technical-line mt-3 data-bleed">WEEK_PACKET=[{chartData.map(d => d.hours.toFixed(1)).join(', ')}]</div>
+      <div className="text-xs text-slate-400 mt-2 font-mono mt-3 ">WEEK_PACKET=[{chartData.map(d => d.hours.toFixed(1)).join(', ')}]</div>
     </div>
   );
 }

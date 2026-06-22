@@ -36,7 +36,7 @@ export function StatsCards({ date, isToday }: StatsCardsProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-5 lg:gap-7 items-stretch">
-      <div className="md:col-span-2 glass-card-24 p-6 relative overflow-hidden group md:-translate-y-3 min-h-[158px] flex flex-col justify-between" style={{ '--hover-r': '0.35deg' } as CSSProperties}>
+      <div className="md:col-span-2 glass-card p-6 relative overflow-hidden group  min-h-[158px] flex flex-col justify-between" style={{ '--hover-r': '0.35deg' } as CSSProperties}>
         <div className="absolute -right-10 bottom-4 w-56 signal-strip" aria-hidden="true" />
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -55,7 +55,7 @@ export function StatsCards({ date, isToday }: StatsCardsProps) {
           <div className="text-5xl sm:text-6xl font-black text-[#11161d] tracking-[0.02em] leading-none">
             {formatDuration(totalSeconds)}
           </div>
-          <div className="technical-line mt-3">SECONDS_TOTAL={totalSeconds} / TODAY={String(isToday)}</div>
+          <div className="text-xs text-slate-400 mt-2 font-mono mt-3">SECONDS_TOTAL={totalSeconds} / TODAY={String(isToday)}</div>
         </div>
       </div>
 
@@ -70,11 +70,11 @@ export function StatsCards({ date, isToday }: StatsCardsProps) {
           <div className="text-5xl font-black text-[#11161d] tracking-[0.04em]">
             {appsCount}
           </div>
-          <div className="technical-line mt-2">PROC_COUNT={appsCount}</div>
+          <div className="text-xs text-slate-400 mt-2 font-mono mt-2">PROC_COUNT={appsCount}</div>
         </div>
       </div>
 
-      <div className="sharp-card p-5 relative group min-h-[150px] flex flex-col justify-between md:-translate-x-2">
+      <div className="glass-card p-5 relative group min-h-[150px] flex flex-col justify-between ">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-none bg-[#1f7aff] flex items-center justify-center">
             <TrendingUp className="w-4.5 h-4.5 text-white" />
@@ -85,7 +85,7 @@ export function StatsCards({ date, isToday }: StatsCardsProps) {
           <div className="text-4xl font-black text-white tracking-[0.03em] font-mono">
             {peakHour}
           </div>
-          <div className="technical-line mt-2">MAX_BIN="{peakHour}"</div>
+          <div className="text-xs text-slate-400 mt-2 font-mono mt-2">MAX_BIN="{peakHour}"</div>
         </div>
       </div>
     </div>

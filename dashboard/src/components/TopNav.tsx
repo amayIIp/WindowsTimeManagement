@@ -28,7 +28,7 @@ export function TopNav({ activeTab, setActiveTab }: TopNavProps) {
           </div>
           <div>
             <span className="block text-lg font-black tracking-[0.08em] text-[#11161d] uppercase">Wellbeing</span>
-            <span className="technical-line hidden sm:block">shell/deconstructed-minimal</span>
+            <span className="text-xs text-slate-400 mt-2 font-mono hidden sm:block">shell/deconstructed-minimal</span>
           </div>
         </div>
 

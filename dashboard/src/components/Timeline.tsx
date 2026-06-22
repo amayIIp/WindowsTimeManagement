@@ -15,7 +15,7 @@ export function Timeline({ date }: { date?: string }) {
   };
 
   return (
-    <div className="sharp-card p-6 h-full flex flex-col min-h-[380px]">
+    <div className="glass-card p-6 h-full flex flex-col min-h-[380px]">
       <div className="relative flex justify-between items-start mb-5 border-b border-white/10 pb-4 gap-4">
         <div>
           <span className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.18em] font-mono">
@@ -65,7 +65,7 @@ export function Timeline({ date }: { date?: string }) {
           </div>
         )}
       </div>
-      <div className="technical-line mt-4 data-bleed">TRACE_REVERSED=true / BUFFER=20 / STREAM=local</div>
+      <div className="text-xs text-slate-400 mt-2 font-mono mt-4 ">TRACE_REVERSED=true / BUFFER=20 / STREAM=local</div>
     </div>
   );
 }

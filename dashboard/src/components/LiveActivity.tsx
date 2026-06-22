@@ -30,7 +30,7 @@ export function LiveActivity() {
             <Clock className="w-4 h-4 shrink-0" />
             <span className="font-mono font-bold">{formatDuration(current.duration_seconds)}</span>
           </div>
-          <div className="technical-line data-bleed md:col-span-3">
+          <div className="text-xs text-slate-400 mt-2 font-mono  md:col-span-3">
             CURRENT_PROCESS="{current.exe}" / WINDOW_TITLE="{current.title || 'null'}"
           </div>
         </div>

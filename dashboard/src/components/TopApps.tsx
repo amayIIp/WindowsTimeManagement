@@ -48,7 +48,7 @@ export function TopApps({ date }: { date?: string }) {
           </div>
         )}
       </div>
-      <div className="technical-line mt-5 data-bleed">TOP_PROC_LIMIT=6 / PEAK_SECONDS={maxDuration}</div>
+      <div className="text-xs text-slate-400 mt-2 font-mono mt-5 ">TOP_PROC_LIMIT=6 / PEAK_SECONDS={maxDuration}</div>
     </div>
   );
 }

@@ -92,10 +92,10 @@ export function DiagnosticsPanel() {
 
   return (
     <div className="space-y-8">
-      <section className="relative fracture-a">
+      <section className="relative ">
         <span className="section-label">Diagnostics / Machine Room</span>
-        <h1 className="deco-title mt-3">System<br />Trace</h1>
-        <div className="technical-line mt-5">REFRESH=3000ms / LOG_WINDOW=200 / BACKEND=tracker</div>
+        <h1 className="text-4xl font-bold tracking-tight text-white mt-3">System<br />Trace</h1>
+        <div className="text-xs text-slate-400 mt-2 font-mono mt-5">REFRESH=3000ms / LOG_WINDOW=200 / BACKEND=tracker</div>
       </section>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-7">
@@ -108,7 +108,7 @@ export function DiagnosticsPanel() {
                 <Icon className={`w-5 h-5 ${i === 0 ? 'text-[#1f7aff]' : 'text-slate-500'}`} />
               </div>
               <div className="text-3xl font-black text-[#11161d] font-mono tracking-[0.02em]">{metric.value}</div>
-              <span className="technical-line mt-3 block">{metric.meta}</span>
+              <span className="text-xs text-slate-400 mt-2 font-mono mt-3 block">{metric.meta}</span>
             </div>
           );
         })}
@@ -144,7 +144,7 @@ export function DiagnosticsPanel() {
             </div>
           </div>
 
-          <div className="sharp-card p-6 lg:translate-x-5">
+          <div className="glass-card p-6 ">
             <span className="text-[10px] tracking-[0.18em] text-slate-400 uppercase font-mono font-bold">Tracking Configuration</span>
             <div className="mt-5 space-y-3 text-sm relative">
               <div className="flex justify-between gap-4 border-b border-white/10 pb-2">
@@ -173,7 +173,7 @@ export function DiagnosticsPanel() {
           </div>
         </div>
 
-        <div className="lg:col-span-2 sharp-card p-6 flex flex-col h-[560px] lg:-translate-y-7">
+        <div className="lg:col-span-2 glass-card p-6 flex flex-col h-[560px] ">
           <div className="relative flex justify-between items-start mb-4 gap-4">
             <div>
               <div className="flex items-center gap-2">
@@ -207,7 +207,7 @@ export function DiagnosticsPanel() {
             )}
             <div ref={terminalEndRef} />
           </div>
-          <span className="technical-line mt-3 text-right">Showing last 200 log entries / auto-scroll=true</span>
+          <span className="text-xs text-slate-400 mt-2 font-mono mt-3 text-right">Showing last 200 log entries / auto-scroll=true</span>
         </div>
       </div>
     </div>

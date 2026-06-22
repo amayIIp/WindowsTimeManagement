@@ -59,7 +59,7 @@ export function Dashboard() {
   }, [todayStr]);
 
   return (
-    <div className="app-shell pb-12">
+    <div className=" pb-12">
       <div className="fracture-field" aria-hidden="true">
         <span />
         <span />
@@ -75,26 +75,26 @@ export function Dashboard() {
             <LiveActivity />
 
             <section className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_520px] gap-7 xl:gap-10 items-end">
-              <div className="relative fracture-a">
+              <div className="relative ">
                 <span className="section-label">Cognitive Surface / Local Index</span>
-                <h1 className="deco-title mt-3">
+                <h1 className="text-4xl font-bold tracking-tight text-white mt-3">
                   Digital<br />Wellbeing
                 </h1>
                 <div className="mt-5 flex flex-wrap items-center gap-3">
                   <div className={`w-2.5 h-2.5 rounded-full ${isToday ? 'bg-[#1f7aff] live-indicator' : 'bg-slate-400'}`} />
-                  <span className="technical-line">
+                  <span className="text-xs text-slate-400 mt-2 font-mono">
                     {isToday ? 'LIVE_TRACKING=true / plate:00' : `ARCHIVE_DATE=${selectedDate}`}
                   </span>
                   <span className="hidden sm:inline-block h-px w-20 bg-[rgba(17,22,29,0.18)]" />
-                  <span className="technical-line">TZ=LOCAL / SAMPLE=10s</span>
+                  <span className="text-xs text-slate-400 mt-2 font-mono">TZ=LOCAL / SAMPLE=10s</span>
                 </div>
               </div>
 
-              <div className="glass-card-24 p-3 sm:p-4 xl:translate-y-5 xl:-translate-x-5">
+              <div className="glass-card p-3 sm:p-4  ">
                 <div className="flex items-center justify-between gap-3 px-2 pb-3">
                   <div>
                     <div className="section-label">Temporal Controls</div>
-                    <div className="technical-line mt-1">choose window / preserve context</div>
+                    <div className="text-xs text-slate-400 mt-2 font-mono mt-1">choose window / preserve context</div>
                   </div>
                   {!isToday && (
                     <button
@@ -154,10 +154,10 @@ export function Dashboard() {
             <StatsCards date={queryDate} isToday={isToday} />
             
             <div className="grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-7 items-stretch">
-              <div className="h-[21rem] lg:h-[22rem] min-w-0 min-h-0 fracture-a">
+              <div className="h-[21rem] lg:h-[22rem] min-w-0 min-h-0 ">
                 <WeeklyChart date={queryDate} />
               </div>
-              <div className="min-w-0 min-h-0 fracture-c">
+              <div className="min-w-0 min-h-0 ">
                 <HourlyHeatmap date={queryDate} />
               </div>
             </div>

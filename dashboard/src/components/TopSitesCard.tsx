@@ -50,7 +50,7 @@ export function TopSitesCard({ date }: { date?: string }) {
           </div>
         )}
       </div>
-      <div className="technical-line mt-5 data-bleed">DNS_BUCKETS={sites.length} / TOP_DOMAIN="{sites[0]?.domain || 'null'}"</div>
+      <div className="text-xs text-slate-400 mt-2 font-mono mt-5 ">DNS_BUCKETS={sites.length} / TOP_DOMAIN="{sites[0]?.domain || 'null'}"</div>
     </div>
   );
 }

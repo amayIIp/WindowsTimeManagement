@@ -14,7 +14,7 @@ export function HourlyHeatmap({ date }: { date?: string }) {
   };
 
   return (
-    <div className="sharp-card p-6 h-full">
+    <div className="glass-card p-6 h-full">
       <div className="relative flex items-start justify-between gap-4 mb-5">
         <div>
           <span className="text-[10px] tracking-[0.18em] text-slate-400 uppercase font-mono font-bold">Hourly Heatmap</span>
@@ -56,7 +56,7 @@ export function HourlyHeatmap({ date }: { date?: string }) {
         <div className="w-3 h-3 rounded-sm bg-[#1f7aff]" />
         <span className="text-[10px] text-slate-500 font-mono">HIGH</span>
       </div>
-      <div className="technical-line mt-4 data-bleed">MAX_SECONDS={maxSec} / GRID=12x2 / SIGNAL=discrete</div>
+      <div className="text-xs text-slate-400 mt-2 font-mono mt-4 ">MAX_SECONDS={maxSec} / GRID=12x2 / SIGNAL=discrete</div>
     </div>
   );
 }
