@@ -65,25 +65,28 @@ async def run():
             continue
             
         win = get_active_window()
-        # BUG FIX: pass win.title to allow title fallback website tracking
         url_domain, url_full = get_browser_url(win.exe, win.hwnd, win.title)
-        
-        key_url = url_full if cfg.tracking.store_full_url else url_domain
-        key = (win.exe, key_url if key_url else win.title)
         
         now = time.time()
         
-        if session is None or session.key != key:
+        # Group by executable and window title to prevent splits due to intermittent URL tracking failures
+        if session and session.exe == win.exe and session.title == win.title:
+            session.end_time = now
+            # If we acquire a URL during the session that wasn't present before, update it!
+            if not session.url and url_domain:
+                session.url = url_domain
+                session.url_full = url_full
+                logger.info("Acquired URL domain mid-session for %s -> %s", session.exe, url_domain)
+        else:
             if session:
                 session.end_time = now
                 await save_or_update_session(session)
-                logger.info("Switched window/website. Old: %s, New: %s (%s)", 
-                            session.exe, win.exe, url_domain or win.title)
-            session = Session(win.exe, win.title, url_domain, url_full, now)
-        else:
-            session.end_time = now
+                logger.info("Session ended: %s (%s). Duration: %ds", 
+                            session.exe, session.url or session.title, int(session.end_time - session.start_time))
             
-        # Real-time update to the database on every poll
+            session = Session(win.exe, win.title, url_domain, url_full, now)
+            logger.info("Session started: %s (%s)", win.exe, url_domain or win.title)
+            
         await save_or_update_session(session)
         await write_current(session)
 

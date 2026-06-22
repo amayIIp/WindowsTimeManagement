@@ -94,9 +94,9 @@ async def save_or_update_session(session: Session):
             await db.execute(
                 """
                 UPDATE activity_log
-                SET end_time = ?, duration_seconds = ?
+                SET end_time = ?, duration_seconds = ?, url_domain = ?, url_full = ?, window_title = ?
                 WHERE id = ?
                 """,
-                (session.end_time, duration, session.id)
+                (session.end_time, duration, session.url, session.url_full, session.title, session.id)
             )
             await db.commit()
